@@ -1,0 +1,654 @@
+/* ========================================
+   IMPORTAÇÃO DE FONTES
+   ======================================== */
+/* Importa a fonte Nunito do Google Fonts - fonte moderna e legível */
+@import "https://fonts.googleapis.com/css?family=Nunito";
+
+/* ========================================
+   VARIÁVEIS CSS (Custom Properties)
+   ======================================== */
+/* Definimos as cores da paleta como variáveis para facilitar manutenção
+   e garantir consistência em todo o projeto */
+:root {
+    --color-purple: #d59dfa; /* Roxo/Lilás - usado no login */
+    --color-pink: #fa9db7; /* Rosa */
+    --color-blue: #9dc2fa; /* Azul */
+    --color-green: #9dfaa2; /* Verde - usado no cadastro */
+    --color-yellow: #ffff78; /* Amarelo */
+    --color-off-white: #fff2f2; /* Off-white - cor de fundo */
+
+    /* Cores derivadas para hover e estados ativos */
+    --color-purple-dark: #c279f5; /* Roxo mais escuro para hover */
+    --color-green-dark: #7ef58a; /* Verde mais escuro para hover */
+
+    /* Cores neutras para textos e bordas */
+    --color-text-dark: #333333;
+    --color-text-light: #666666;
+    --color-border: #e0e0e0;
+}
+
+/* ========================================
+   RESET E ESTILOS GLOBAIS
+   ======================================== */
+/* Remove margens e paddings padrão do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Inclui padding e border no cálculo de width/height */
+}
+
+/* Aplica a fonte Nunito em todo o documento */
+body {
+    font-family: "Nunito", sans-serif;
+    background-color: var(
+        --color-off-white
+    ); /* Fundo off-white em todas as páginas */
+    color: var(--color-text-dark);
+    /* Previne rolagem horizontal indesejada */
+    overflow-x: hidden;
+}
+
+/* ========================================
+   CONTAINER PRINCIPAL DE AUTENTICAÇÃO
+   ======================================== */
+/* Container que divide a tela em dois lados (flexbox) */
+.auth-container {
+    display: flex; /* Usa flexbox para layout lado a lado */
+    min-height: 100vh; /* Garante altura mínima de 100% da viewport */
+    width: 100%;
+}
+
+/* ========================================
+   LADOS DA TELA (LOGO E FORMULÁRIO)
+   ======================================== */
+/* Cada lado ocupa 50% da tela em desktop */
+.auth-side {
+    flex: 1; /* Cada lado cresce igualmente para preencher o espaço */
+    display: flex;
+    justify-content: center; /* Centraliza conteúdo horizontalmente */
+    align-items: center; /* Centraliza conteúdo verticalmente */
+    padding: 2rem; /* Espaçamento interno */
+}
+
+/* Lado esquerdo - fundo levemente diferenciado (opcional) */
+.auth-side-left {
+    background-color: var(--color-off-white);
+}
+
+/* Lado direito - mesmo fundo */
+.auth-side-right {
+    background-color: var(--color-off-white);
+}
+
+/* ========================================
+   CONTAINER DA LOGO
+   ======================================== */
+/* Centraliza e dimensiona a logo */
+.logo-container {
+    text-align: center;
+    max-width: 100%;
+}
+
+/* Estilo da imagem da logo */
+.auth-logo {
+    max-width: 450px; /* Largura máxima em telas grandes */
+    width: 100%; /* Se adapta a telas menores */
+    height: auto; /* Mantém proporção da imagem */
+    /* Adiciona suavidade na transição de tamanho */
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in;
+}
+
+/* Efeito hover na logo (cresce levemente ao passar o mouse) */
+.auth-logo:hover {
+    transform: scale(1.05); /* Aumenta 5% */
+}
+
+/* ========================================
+   TAGLINE DA LOGO (FRASE MOTIVACIONAL)
+   ======================================== */
+/* Frase descritiva abaixo da logo */
+.logo-tagline {
+    margin-top: 1.5rem; /* Espaço acima da frase */
+    font-size: 1.2rem; /* Tamanho da fonte */
+    font-weight: 600; /* Semi-negrito */
+    color: var(--color-text-light); /* Cor cinza suave */
+    text-align: center; /* Centralizado */
+    line-height: 1.6; /* Altura da linha para melhor legibilidade */
+    max-width: 400px; /* Largura máxima */
+    margin-left: auto; /* Centraliza horizontalmente */
+    margin-right: auto; /* Centraliza horizontalmente */
+    /* Adiciona suavidade na aparição */
+    animation: fadeIn 1s ease-in;
+}
+
+/* Animação de fade-in suave */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Começa invisível */
+        transform: translateY(10px); /* Começa 10px abaixo */
+    }
+    to {
+        opacity: 1; /* Termina visível */
+        transform: translateY(0); /* Termina na posição normal */
+    }
+}
+
+/* Responsividade para tablets */
+@media (max-width: 992px) {
+    .logo-tagline {
+        font-size: 1.1rem; /* Reduz fonte em tablets */
+        max-width: 350px; /* Reduz largura máxima */
+    }
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+    .logo-tagline {
+        font-size: 1rem; /* Reduz mais em mobile */
+        margin-top: 1rem; /* Menos espaço em mobile */
+        max-width: 300px; /* Largura menor */
+    }
+}
+
+/* Mobile muito pequeno */
+@media (max-width: 480px) {
+    .logo-tagline {
+        font-size: 0.9rem; /* Fonte ainda menor */
+        max-width: 250px; /* Largura bem pequena */
+    }
+}
+
+/* ========================================
+   CARDS DE AUTENTICAÇÃO
+   ======================================== */
+/* Card que contém o formulário */
+.auth-card {
+    background-color: white;
+    padding: 3rem 2.5rem; /* Espaçamento interno (vertical horizontal) */
+    border-radius: 20px; /* Cantos arredondados */
+    /* Sombra suave para dar profundidade */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    max-width: 450px; /* Largura máxima do card */
+    width: 100%; /* Se adapta a telas menores */
+    /* Borda colorida à esquerda (será sobrescrita pelas classes específicas) */
+    border-left: 6px solid;
+    /* Transição suave para efeitos hover */
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+    animation: fadeIn 1s ease-in; /*aparece suavemente */
+}
+
+/* Efeito hover no card - destaca ao passar o mouse */
+.auth-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18); /* Sombra mais pronunciada */
+    transform: translateY(-5px); /* Move levemente para cima */
+}
+
+/* Card roxo (login) - define cor da borda */
+.auth-card-purple {
+    border-left-color: var(--color-purple);
+}
+
+/* Card verde (cadastro) - define cor da borda */
+.auth-card-green {
+    border-left-color: var(--color-green);
+}
+
+/* ========================================
+   TÍTULOS E TEXTOS DO CARD
+   ======================================== */
+/* Título principal do card */
+.auth-title {
+    font-size: 2rem; /* Tamanho grande */
+    font-weight: 700; /* Negrito */
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+/* Subtítulo (texto descritivo abaixo do título) */
+.auth-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-light); /* Cor mais clara */
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* ========================================
+   FORMULÁRIO
+   ======================================== */
+/* Container do formulário */
+.auth-form {
+    width: 100%;
+}
+
+/* Grupo de cada campo do formulário (label + input) */
+.form-group {
+    margin-bottom: 1.5rem; /* Espaçamento entre campos */
+}
+
+/* Labels dos campos */
+.form-label {
+    display: block; /* Ocupa toda a largura */
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+/* Ícones dentro dos labels */
+.form-label i {
+    margin-right: 0.3rem; /* Pequeno espaço entre ícone e texto */
+    color: var(--color-text-light);
+}
+
+/* ========================================
+   CAMPOS DE INPUT
+   ======================================== */
+/* Estilo base dos inputs */
+.auth-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--color-border); /* Borda cinza clara */
+    border-radius: 10px;
+    font-size: 1rem;
+    /* Transição suave ao focar */
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Placeholder (texto de exemplo dentro do input) */
+.auth-input::placeholder {
+    color: #aaa; /* Cinza claro */
+}
+
+/* Estado de foco do input (quando clica dentro) */
+.auth-input:focus {
+    outline: none; /* Remove borda padrão do navegador */
+    border-color: var(--color-purple); /* Borda roxa ao focar */
+    /* Sombra colorida sutil */
+    box-shadow: 0 0 0 3px rgba(213, 157, 250, 0.1);
+}
+
+/* Foco nos inputs do formulário de cadastro (verde) */
+.auth-card-green .auth-input:focus {
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 3px rgba(157, 250, 162, 0.1);
+}
+
+/* ========================================
+   WRAPPER DE SENHA (INPUT + BOTÃO)
+   ======================================== */
+/* Container que agrupa input de senha e botão de toggle */
+.password-input-wrapper {
+    position: relative; /* Permite posicionamento absoluto do botão dentro */
+}
+
+/* Input de senha dentro do wrapper */
+.password-input-wrapper .auth-input {
+    padding-right: 3rem; /* Espaço à direita para o botão não sobrepor o texto */
+}
+
+/* Botão de mostrar/ocultar senha */
+.password-toggle {
+    position: absolute;
+    right: 10px; /* Posicionado à direita do input */
+    top: 50%; /* Centralizado verticalmente */
+    transform: translateY(-50%); /* Ajuste fino da centralização */
+    background: none;
+    border: none;
+    cursor: pointer; /* Muda cursor para indicar clicável */
+    color: var(--color-text-light);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    /* Transição suave de cor */
+    transition: color 0.3s ease;
+}
+
+/* Hover no botão de toggle */
+.password-toggle:hover {
+    color: var(--color-text-dark); /* Escurece ao passar o mouse */
+}
+
+/* ========================================
+   INDICADORES DE SENHA
+   ======================================== */
+/* Barra de força da senha */
+.password-strength {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Mensagem de correspondência de senhas */
+.password-match {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Texto auxiliar abaixo dos inputs */
+.form-text {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+}
+
+/* ========================================
+   BOTÕES DE SUBMIT
+   ======================================== */
+/* Estilo base do botão */
+.auth-btn {
+    width: 100%;
+    padding: 0.85rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    /* Transições suaves para efeitos hover */
+    transition:
+        background-color 0.3s ease,
+        transform 0.2s ease,
+        box-shadow 0.3s ease;
+    margin-top: 1rem;
+    color: white; /* Texto branco nos botões */
+}
+
+/* Botão roxo (login) */
+.auth-btn-purple {
+    background-color: var(--color-purple);
+}
+
+/* Hover no botão roxo */
+.auth-btn-purple:hover {
+    background-color: var(--color-purple-dark); /* Escurece */
+    transform: translateY(-2px); /* Levanta levemente */
+    box-shadow: 0 6px 20px rgba(213, 157, 250, 0.4); /* Sombra colorida */
+}
+
+/* Botão verde (cadastro) */
+.auth-btn-green {
+    background-color: var(--color-green);
+    color: var(
+        --color-text-dark
+    ); /* Texto escuro para melhor contraste no verde */
+}
+
+/* Hover no botão verde */
+.auth-btn-green:hover {
+    background-color: var(--color-green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(157, 250, 162, 0.4);
+}
+
+/* Estado ativo do botão (quando clica) */
+.auth-btn:active {
+    transform: translateY(0); /* Remove o efeito de levantamento */
+}
+
+/* ========================================
+   LINKS DE NAVEGAÇÃO
+   ======================================== */
+/* Container do link (ex: "Não tem conta? Cadastre-se") */
+.auth-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+}
+
+/* Links roxos */
+.link-purple {
+    color: var(--color-purple);
+    text-decoration: none; /* Remove sublinhado */
+    font-weight: 600;
+    /* Transição suave de cor */
+    transition: color 0.3s ease;
+}
+
+.link-purple:hover {
+    color: var(--color-purple-dark); /* Escurece ao passar o mouse */
+    text-decoration: underline; /* Adiciona sublinhado no hover */
+}
+
+/* Links verdes */
+.link-green {
+    color: var(--color-green-dark);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.link-green:hover {
+    color: #5fd96f; /* Verde ainda mais escuro */
+    text-decoration: underline;
+}
+
+/* ========================================
+   ALERTAS DE VALIDAÇÃO
+   ======================================== */
+/* Personalização dos alertas do Bootstrap */
+.alert-custom {
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start; /* Alinha ícone ao topo */
+}
+
+/* Ícone dentro do alerta */
+.alert-custom i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    flex-shrink: 0; /* Impede que o ícone seja comprimido */
+}
+
+/* Remove estilo padrão de lista */
+.alert-custom ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.alert-custom li {
+    margin-bottom: 0.25rem;
+}
+
+/* ========================================
+   RESPONSIVIDADE - TABLETS
+   ======================================== */
+/* Telas menores que 992px (tablets) */
+@media (max-width: 992px) {
+    /* Reduz tamanho da logo */
+    .auth-logo {
+        max-width: 350px;
+    }
+
+    /* Reduz padding do card */
+    .auth-card {
+        padding: 2.5rem 2rem;
+    }
+
+    /* Reduz tamanho do título */
+    .auth-title {
+        font-size: 1.75rem;
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE - MOBILE
+   ======================================== */
+/* Telas menores que 768px (smartphones) */
+@media (max-width: 768px) {
+    /* Muda layout de lado a lado para empilhado (coluna) */
+    .auth-container {
+        flex-direction: column; /* Empilha os elementos verticalmente */
+    }
+
+    /* Ajusta altura dos lados para não ocupar tela inteira cada */
+    .auth-side {
+        min-height: auto; /* Remove altura mínima */
+        padding: 1.5rem;
+    }
+
+    /* Reduz ainda mais a logo em mobile */
+    .auth-logo {
+        max-width: 250px;
+        margin-bottom: 1rem; /* Espaço abaixo da logo */
+    }
+
+    /* Ajusta padding do card em mobile */
+    .auth-card {
+        padding: 2rem 1.5rem;
+        /* Remove max-width para ocupar mais espaço */
+        max-width: 100%;
+    }
+
+    /* Reduz tamanho do título em mobile */
+    .auth-title {
+        font-size: 1.5rem;
+    }
+
+    /* Reduz tamanho do subtítulo */
+    .auth-subtitle {
+        font-size: 0.9rem;
+    }
+
+    /* Reduz padding do botão em mobile */
+    .auth-btn {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+}
+
+/* ========================================
+   RESPONSIVIDADE - MOBILE PEQUENO
+   ======================================== */
+/* Telas muito pequenas (menos de 480px) */
+@media (max-width: 480px) {
+    /* Reduz ainda mais paddings */
+    .auth-side {
+        padding: 1rem;
+    }
+
+    .auth-card {
+        padding: 1.5rem 1rem;
+        border-radius: 15px; /* Cantos menos arredondados */
+    }
+
+    /* Logo bem pequena */
+    .auth-logo {
+        max-width: 200px;
+    }
+
+    /* Título menor */
+    .auth-title {
+        font-size: 1.3rem;
+    }
+
+    /* Inputs menores */
+    .auth-input {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* ========================================
+   NAVBAR DO SISTEMA
+   ======================================== */
+
+.app-navbar {
+    background-color: white;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 0.75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.app-navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo */
+.app-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+}
+
+.app-logo img {
+    height: 60px;
+    width: auto;
+}
+
+/* Links */
+.app-nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.app-nav-links a {
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--color-text-light);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.app-nav-links a:hover {
+    background-color: rgba(213, 157, 250, 0.15);
+    color: var(--color-purple);
+}
+
+/*se estiver na página ativa*/
+.app-nav-links a.active {
+    background-color: rgba(213, 157, 250, 0.25);
+    color: var(--color-purple);
+}
+
+/* Ações */
+.app-nav-actions {
+    display: flex;
+    align-items: center;
+}
+
+.btn-logout {
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.btn-logout:hover {
+    color: var(--color-pink);
+}
+
+/* ========================================
+   CONTEÚDO PRINCIPAL
+   ======================================== */
+
+.app-content {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
