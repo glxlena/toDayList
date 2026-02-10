@@ -12,7 +12,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::with('toDos')->latest()->get(); //ordem de criação, o mais recente primeiro
+        return view('home', compact('tasks'));
     }
 
     /**
