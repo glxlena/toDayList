@@ -15,7 +15,7 @@ Route::post('/register', [UserController::class, 'register']);
 
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
-// Rota protegida (exemplo)
+// Rota protegida para a home, gráficos e perfil
 Route::get('/home', function () {return view('tasks/home');
     })->middleware('auth')->name('home');
 

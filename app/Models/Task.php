@@ -17,6 +17,6 @@ class Task extends Model
 
     public function toDos()
     {
-        return $this->hasMany(ToDo::class);
+        return $this->hasMany(ToDo::class); //has many = uma tarefa pode ter muitos toDos
     }
 }

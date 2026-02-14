@@ -29,8 +29,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'due_date' => 'nullable|date',
+            'color' => 'required|string'
+        ]);
+
+        Task::create([
+            'title' => $request->title,
+            'due_date' => $request->due_date,
+            'color' => $request->color,
+        ]);
+
+        return redirect()->route('home')
+            ->with('success', 'Task criada com sucesso!');
     }
+
 
     /**
      * Display the specified resource.
